@@ -4,6 +4,7 @@ extrn   input1, input2, input3, input4, input5
 extrn	max_players, player_num, max_target_num, target_size, number_correct
 extrn	permitted_inputs, target_numbers, guess_array, lcd_msg
 extrn	Add_Two_Numbers, Copy, Number_Correct, Character_Input, Press_To_Proceed, RNG, Keyboard_Press
+extrn	LCD_Setup, LCD_Write_Message, LCD_shift, LCD_clear
 	
 psect	code, abs 
 	
@@ -21,59 +22,59 @@ initialise:
 	movlw   permitted_inputs
 	movwf   FSR0 ; Set FSR0 to point to the start of permitted_inputs
 
-	movlw   0x1
+	movlw   '1'
 	movwf   INDF0
 	incf    FSR0, F
 
-	movlw   0x2
+	movlw   '2'
 	movwf   INDF0
 	incf    FSR0, F
 
-	movlw   0x3
+	movlw   '3'
 	movwf   INDF0
 	incf    FSR0, F
 
-	movlw   0x4
+	movlw   '4'
 	movwf   INDF0
 	incf    FSR0, F
 
-	movlw   0x5
+	movlw   '5'
 	movwf   INDF0
 	incf    FSR0, F
 
-	movlw   0x6
+	movlw   '6'
 	movwf   INDF0
 	incf    FSR0, F
 
-	movlw   0x7
+	movlw   '7'
 	movwf   INDF0
 	incf    FSR0, F
 
-	movlw   0x8
+	movlw   '8'
 	movwf   INDF0
 	incf    FSR0, F
 
-	movlw   0x9
+	movlw   '9'
 	movwf   INDF0
 	incf    FSR0, F
 
-	movlw   0xA
+	movlw   'A'
 	movwf   INDF0
 	incf    FSR0, F
 
-	movlw   0xB
+	movlw   'B'
 	movwf   INDF0
 	incf    FSR0, F
 
-	movlw   0xC
+	movlw   'C'
 	movwf   INDF0
 	incf    FSR0, F
 
-	movlw   0xD
+	movlw   'D'
 	movwf   INDF0
 	incf    FSR0, F
 
-	movlw   0xE
+	movlw   'E'
 	movwf   INDF0
 	
 	
@@ -86,9 +87,14 @@ initialise:
 	movwf	target_size
 	
 	; Set up display/keypad
+	call	LCD_Setup
 	
 	; Display input number of players prompt
 	call	Input_Player_Msg
+	movlw	lcd_msg
+	movwf	FSR2
+	movlw	15
+	call	LCD_Write_Message
 	
 	; Setting the Character_Input function inputs
 	movlw	permitted_inputs ; First of the allowed memory values
@@ -106,7 +112,9 @@ initialise:
 	movlw	max_players
 	movwf	input5 ; Storing in max_players memory location
 	
+	call	LCD_shift ; Characters output to the bottom row
 	call	Character_Input
+	call	LCD_clear
 	
 	; Start timer for random number?
 	
@@ -125,6 +133,12 @@ first_player_turn:
 player_turn:
 	; Display player number at the top of the LCD
 	call	Player_Turn_Msg
+	movlw	lcd_msg
+	movwf	FSR2
+	movlw	15
+	call	LCD_Write_Message
+	call	Press_To_Proceed
+	call	LCD_clear
 	
 	; Input guess
 	movlw	permitted_inputs ; First of the allowed memory values
@@ -141,6 +155,7 @@ player_turn:
 	
 	movlw	guess_array
 	movwf	input5 ; Storing in max_players memory location
+	
 	
 	call	Character_Input
 	
