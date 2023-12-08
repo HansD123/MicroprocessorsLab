@@ -1,7 +1,7 @@
   #include <xc.inc>
 
 global  Keyboard_Setup, Keyboard_Press
-extrn	subVar1
+extrn	subVar6
 
 psect	udata_acs   ; named variables in access ram
 
@@ -207,139 +207,137 @@ Keyboard_Map:
     ; Outputs the relevant number to WREG
     
     ; Storing the number
-    movwf   subVar1 
+    movwf   subVar6 
     
     ; Checking for a match
     movlw   0x0
-    subwf   subVar1, W
+    subwf   subVar6, W
     bz	    key_1_match
     
     movlw   0x1
-    subwf   subVar1, W
+    subwf   subVar6, W
     bz	    key_2_match
     
     movlw   0x2
-    subwf   subVar1, W
+    subwf   subVar6, W
     bz	    key_3_match
     
     movlw   0x3
-    subwf   subVar1, W
+    subwf   subVar6, W
     bz	    key_4_match
     
     movlw   0x4
-    subwf   subVar1, W
+    subwf   subVar6, W
     bz	    key_5_match
     
     movlw   0x5
-    subwf   subVar1, W
+    subwf   subVar6, W
     bz	    key_6_match
     
     movlw   0x6
-    subwf   subVar1, W
+    subwf   subVar6, W
     bz	    key_7_match
     
     movlw   0x7
-    subwf   subVar1, W
+    subwf   subVar6, W
     bz	    key_8_match
     
     movlw   0x8
-    subwf   subVar1, W
+    subwf   subVar6, W
     bz	    key_9_match
     
     movlw   0x9
-    subwf   subVar1, W
+    subwf   subVar6, W
     bz	    key_10_match
     
     movlw   0xA
-    subwf   subVar1, W
+    subwf   subVar6, W
     bz	    key_11_match
     
     movlw   0xB
-    subwf   subVar1, W
+    subwf   subVar6, W
     bz	    key_12_match
     
     movlw   0xC
-    subwf   subVar1, W
+    subwf   subVar6, W
     bz	    key_13_match
     
     movlw   0xD
-    subwf   subVar1, W
+    subwf   subVar6, W
     bz	    key_14_match
     
     movlw   0xE
-    subwf   subVar1, W
+    subwf   subVar6, W
     bz	    key_15_match
 
     movlw   0xF
-    subwf   subVar1, W
+    subwf   subVar6, W
     bz	    key_16_match
 
 key_1_match:
-    movlw   0xC
+    movlw   'C'
     return
     
 key_2_match:
-    movlw   0xD
+    movlw   'D'
     return
     
 key_3_match:
-    movlw   0xE
+    movlw   'E'
     return
     
 key_4_match:
-    movlw   0xF
+    movlw   'F'
     return
     
 key_5_match:
-    movlw   0xB
+    movlw   'B'
     return
     
 key_6_match:
-    movlw   0x9
+    movlw   '9'
     return
     
 key_7_match:
-    movlw   0x6
+    movlw  '6'
     return
     
 key_8_match:
-    movlw   0x3
+    movlw   '3'
     return
     
 key_9_match:
-    movlw   0x0
+    movlw   '0'
     return
     
 key_10_match:
-    movlw   0x8
+    movlw   '8'
     return
     
 key_11_match:
-    movlw   0x5
+    movlw   '5'
     return
     
 key_12_match:
-    movlw   0x2
+    movlw   '2'
     return
     
 key_13_match:
-    movlw   0xA
+    movlw   'A'
     return
     
 key_14_match:
-    movlw   0x7
+    movlw   '7'
     return
     
 key_15_match:
-    movlw   0x4
+    movlw   '4'
     return
     
 key_16_match:
-    movlw   0x1
+    movlw   '1'
     return
     
     end
-
-
 
 
